@@ -1,0 +1,61 @@
+# Java / Maven
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+.mvn/timing.properties
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# Logs and runtime artifacts
+*.log
+logs/
+*.hprof
+data/
+target/_fulltest_backup.sql
+
+# Local-only mock data and helper scripts
+mock/
+tools/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+src/main/resources/application-local.yml
+src/main/resources/application-local.yaml
+
+# Python test artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Frontend tooling
+node_modules/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini

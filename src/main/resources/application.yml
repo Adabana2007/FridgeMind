@@ -1,0 +1,74 @@
+# ============================================================
+# FridgeMind 冰箱食材识别与管理系统 - 配置文件
+# ============================================================
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:fridgemind}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:1234}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      # 16xxx 是容器宿主端口（见 deploy/docker-compose.yml）：避开 Windows 动态端口段里的预留
+      port: ${REDIS_PORT:16379}
+      timeout: 3000ms
+
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      embedding:
+        options:
+          model: ${OLLAMA_EMBED_MODEL:bge-m3}
+      chat:
+        options:
+          # 必须与 ollama list 中的 tag 完全一致：Spring AI 不再做模型名大小写容错
+          model: ${OLLAMA_CHAT_MODEL:Qwen2.5:7B}
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        # gRPC 端口（宿主 16334 → 容器 6334）；16333 是 REST 端口，Spring AI 不用它
+        port: ${QDRANT_PORT:16334}
+        collection-name: ${QDRANT_COLLECTION:fridgemind_recipes}
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    # 数据库下划线字段 → Java 驼峰属性自动映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 主键自增策略
+      id-type: auto
+
+# 服务端口
+server:
+  port: 9090
+
+# 默认 info；本地排查接口链路时用 LOG_LEVEL=debug 覆盖（SQL 打印由上面的 log-impl 单独控制）
+logging:
+  level:
+    com.fridgemind: ${LOG_LEVEL:info}
+
+# 观测：只暴露健康与指标（AI 调用耗时/次数来自 Spring AI 的 observation），其余端点不开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+
+# 应用自定义配置
+app:
+  jwt:
+    # 默认值仅供本地开发，生产必须用 JWT_SECRET 覆盖为强随机字符串
+    secret: ${JWT_SECRET:fridgemind-jwt-secret-key-change-in-production-2024}
+    expiration-ms: 604800000
+  sms:
+    # 开发阶段Mock短信，不实际发送
+    mock: ${SMS_MOCK:true}
+  recipe:
+    # 爬虫数据根目录（recipe-images 静态服务用）；换机器用 RECIPE_BASE_DIR 覆盖
+    base-dir: ${RECIPE_BASE_DIR:E:/Study/A/ice-butler/Intelligent_refrigerator_system/FridgeMind/data/recipes}
