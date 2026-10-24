@@ -28,7 +28,6 @@ FridgeMind 围绕“冰箱里有什么、今天吃什么、该买什么”，将
 | Spring WebSocket | 6.2.3 |
 | Spring AI | 1.0.9 |
 | MyBatis-Plus | 3.5.5 |
-| MySQL Connector/J | 9.1.0 |
 | JJWT | 0.12.3 |
 | Jackson | 2.18.2 |
 | Lombok | 1.18.36 |
@@ -37,9 +36,9 @@ FridgeMind 围绕“冰箱里有什么、今天吃什么、该买什么”，将
 | ZXing | 3.5.3 |
 | Maven | 3.9+ |
 | MySQL | 8.0+ |
-| Redis | 独立部署 |
-| Ollama | 独立部署 |
-| Qdrant | 独立部署 |
+| Redis | 7.4.9 |
+| Ollama | 0.32.15 |
+| Qdrant | 1.18.2 |
 
 ## 系统架构
 
