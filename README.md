@@ -28,10 +28,8 @@ FridgeMind 围绕“冰箱里有什么、今天吃什么、该买什么”，将
 | Spring WebSocket | 6.2.3 |
 | Spring AI | 1.0.9 |
 | MyBatis-Plus | 3.5.5 |
-| JJWT | 0.12.3 |
-| Jackson | 2.18.2 |
+| JWT | 0.12.3 |
 | Lombok | 1.18.36 |
-| 内嵌 Tomcat | 10.1.36 |
 | Hutool | 5.8.24 |
 | ZXing | 3.5.3 |
 | Maven | 3.9+ |
